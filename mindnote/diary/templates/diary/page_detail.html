@@ -1,0 +1,44 @@
+<!-- page_detail.html -->
+<div class="notetext">
+    <div class="text-box">
+        <h2>
+            {{data.title}}
+        </h2>
+        <div class="state">
+            <p>감정 상태</p>
+            <span>
+                {{data.feeling}}
+            </span>
+        </div>
+        <div class="score">
+            <p>감정 점수</p>
+            <span>{{data.score}}점</span>
+        </div>
+        <div class="date">
+            <span>
+                {{data.dt_created|date:"d"}}
+            </span>
+            <div class="month-year">
+                <p class="month">
+                    {{data.dt_created|date:"M"}}
+                </p>
+                <p class="year">
+                    {{data.dt_created|date:"Y"}}
+                </p>
+            </div>
+        </div>
+        <div class="detail">
+            {{data.content|linebreaksbr}}
+        </div>
+        <div class="notetext-btn">
+            <ul>
+                <li>
+                    <a href="#">삭제하기</a>
+                </li>
+                <li>
+                    <a href="#">수정하기</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
