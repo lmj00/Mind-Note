@@ -8,7 +8,7 @@ class Page(models.Model):
     content = models.TextField(validators=[validate_no_hash])
     feeling = models.CharField(max_length=8, validators=[validate_no_hash, validate_no_numbers])
     score = models.IntegerField(validators=[validate_score])
-    dt_created = models.DateField()
+    dt_created = models.DateField(auto_now=True)
 
 
     def __str__(self):
