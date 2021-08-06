@@ -22,4 +22,15 @@ def page_create(request):
             return redirect('page-detail', page_id=new_page.id) 
     else:
         page_form = PageForm()
+    return render(request, 'diary/page_form.html', {'form':page_form}) 
+
+def page_update(request, page_id):
+    object = Page.objects.get(id=page_id)
+    if request.method == 'POST':
+        page_form = PageForm(request.POST, instance=object)
+        if page_form.is_valid():
+            page_form.save()
+            return redirect('page-detail', page_id=page_id)
+    else:
+        page_form = PageForm(instance=object)
     return render(request, 'diary/page_form.html', {'form':page_form})
