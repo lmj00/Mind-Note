@@ -7,12 +7,15 @@ def page_list(request):
     object_list = Page.objects.all()
     return render(request, 'diary/page_list.html', {'object_list':object_list})
 
+
 def page_detail(request, page_id):
     object = Page.objects.get(id=page_id)
     return render(request, 'diary/page_detail.html', {'object':object})
 
+
 def info(request):
     return render(request, 'diary/info.html')    
+
 
 def page_create(request):
     if request.method == 'POST':
@@ -23,6 +26,7 @@ def page_create(request):
     else:
         page_form = PageForm()
     return render(request, 'diary/page_form.html', {'form':page_form}) 
+
 
 def page_update(request, page_id):
     object = Page.objects.get(id=page_id)
@@ -35,6 +39,7 @@ def page_update(request, page_id):
         page_form = PageForm(instance=object)
     return render(request, 'diary/page_form.html', {'form':page_form})
 
+
 def page_delete(request, page_id):
     object = Page.objects.get(id=page_id)
     if request.method == 'POST':
@@ -42,3 +47,7 @@ def page_delete(request, page_id):
         return redirect('page-list')
     else:
         return render(request, 'diary/page_confirm_delete.html', {'object':object})
+
+
+def index(request):
+    return render(request, 'diary/index.html')
