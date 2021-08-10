@@ -1,11 +1,17 @@
 from django.shortcuts import render, redirect, get_object_or_404
+from django.core.paginator import Paginator
 from .models import Page
 from .forms import PageForm
 
 # Create your views here.
 def page_list(request):
     object_list = Page.objects.all()
-    return render(request, 'diary/page_list.html', {'object_list':object_list})
+    paginator = Paginator(object_list, 8)
+    page_number = request.GET.get('page')
+    if page_number is None:
+        page_number = 1
+    page_object = paginator.page(page_number)
+    return render(request, 'diary/page_list.html', {'page':page_object})
 
 
 def page_detail(request, page_id):
