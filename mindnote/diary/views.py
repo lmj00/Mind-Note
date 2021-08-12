@@ -1,19 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.views.generic import CreateView, ListView
+from django.views.generic import CreateView, ListView, DetailView
 from django.urls import reverse
 from .models import Page
 from .forms import PageForm
 
 # Create your views here.
-# def page_list(request):
-#     object_list = Page.objects.all()
-#     paginator = Paginator(object_list, 8)
-#     page_number = request.GET.get('page')
-#     if page_number is None:
-#         page_number = 1
-#     page_object = paginator.page(page_number)
-#     return render(request, 'diary/page_list.h tml', {'page':page_object})
 class PageListView(ListView):
     model = Page
     tempalte_name = 'diary/page_list.html'
@@ -22,9 +14,10 @@ class PageListView(ListView):
     page_kwarg = 'page'
     
 
-def page_detail(request, page_id):
-    object = get_object_or_404(Page, id=page_id)
-    return render(request, 'diary/page_detail.html', {'object':object})
+class PageDetailView(DetailView):
+    model = Page
+    template_name = 'diary/page_detail.html'
+    pk_url_kwarg = 'page_id'
 
 
 def info(request):
