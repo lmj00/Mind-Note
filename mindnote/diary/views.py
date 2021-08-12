@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.paginator import Paginator
-from django.views.generic import CreateView, ListView, DetailView
+from django.views.generic import CreateView, ListView, DetailView, UpdateView
 from django.urls import reverse
 from .models import Page
 from .forms import PageForm
@@ -33,16 +33,14 @@ class PageCreateView(CreateView):
         return reverse('page-detail', kwargs={'page_id':self.object.id})
 
 
-def page_update(request, page_id):
-    object = get_object_or_404(Page, id=page_id)
-    if request.method == 'POST':
-        page_form = PageForm(request.POST, instance=object)
-        if page_form.is_valid():
-            page_form.save()
-            return redirect('page-detail', page_id=page_id)
-    else:
-        page_form = PageForm(instance=object)
-    return render(request, 'diary/page_form.html', {'form':page_form})
+class PageUpdateView(UpdateView):
+    model = Page
+    form_class = PageForm
+    template_name = 'diary/page_form.html'
+    pk_url_kwarg = 'page_id'
+
+    def get_success_url(self):
+        return reverse('page-detail', kwargs={'page_id':self.object.id})
 
 
 def page_delete(request, page_id):
